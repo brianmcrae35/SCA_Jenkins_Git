@@ -8,7 +8,8 @@ CREATE TABLE [Person].[Address]
 [PostalCode] [nvarchar] (15) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 [SpatialLocation] [sys].[geography] NULL,
 [rowguid] [uniqueidentifier] NOT NULL ROWGUIDCOL CONSTRAINT [DF_Address_rowguid] DEFAULT (newid()),
-[ModifiedDate] [datetime] NOT NULL CONSTRAINT [DF_Address_ModifiedDate] DEFAULT (getdate())
+[ModifiedDate] [datetime] NOT NULL CONSTRAINT [DF_Address_ModifiedDate] DEFAULT (getdate()),
+[Comments] [nchar] (10) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [Person].[Address] ADD CONSTRAINT [PK_Address_AddressID] PRIMARY KEY CLUSTERED  ([AddressID]) ON [PRIMARY]
@@ -27,45 +28,13 @@ EXEC sp_addextendedproperty N'MS_Description', N'Primary key for Address records
 GO
 EXEC sp_addextendedproperty N'MS_Description', N'First street address line.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
 GO
-EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
-GO
-EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
-GO
 EXEC sp_addextendedproperty N'MS_Description', N'Second street address line.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
 GO
-EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
-GO
-EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
-GO
 EXEC sp_addextendedproperty N'MS_Description', N'Name of the city.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
-GO
-EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
-GO
-EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
 GO
 EXEC sp_addextendedproperty N'MS_Description', N'Date and time the record was last updated.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'ModifiedDate'
 GO
 EXEC sp_addextendedproperty N'MS_Description', N'Postal code for the street address.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
-GO
-EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
-GO
-EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
-GO
-EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
 GO
 EXEC sp_addextendedproperty N'MS_Description', N'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'rowguid'
 GO
@@ -88,4 +57,36 @@ GO
 EXEC sp_addextendedproperty N'MS_Description', N'Nonclustered index.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'INDEX', N'IX_Address_StateProvinceID'
 GO
 EXEC sp_addextendedproperty N'MS_Description', N'Clustered index created by a primary key constraint.', 'SCHEMA', N'Person', 'TABLE', N'Address', 'INDEX', N'PK_Address_AddressID'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine1'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'AddressLine2'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'City'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_name', N'Confidential - GDPR', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
+GO
+EXEC sp_addextendedproperty N'sys_sensitivity_label_id', N'989ADC05-3F3F-0588-A635-F475B994915B', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_name', N'Contact Info', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
+GO
+EXEC sp_addextendedproperty N'sys_information_type_id', N'5C503E21-22C6-81FA-620B-F369B8EC38D1', 'SCHEMA', N'Person', 'TABLE', N'Address', 'COLUMN', N'PostalCode'
 GO
